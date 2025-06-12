@@ -4,29 +4,39 @@
  */
 package summative.assignment;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.Scanner;
 
 public class GameData {
-    private static final String FILE_NAME = "progress.txt";
+    private static final String SAVE_FILE = "game_save.txt";
 
-    public static int loadProgress() {
+    public static void saveGame(int level, int health, int defeated) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
-            int progress = Integer.parseInt(reader.readLine());
-            reader.close();
-            return progress;
+            FileWriter writer = new FileWriter(SAVE_FILE);
+            writer.write(level + "\n");
+            writer.write(health + "\n");
+            writer.write(defeated + "\n");
+            writer.close();
         } catch (Exception e) {
-            return 1; // default level
+            System.out.println("Couldn't save game");
         }
     }
 
-    public static void saveProgress(int level) {
+    public static int[] loadGame() {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME));
-            writer.write(String.valueOf(level));
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            File file = new File(SAVE_FILE);
+            if (!file.exists()) return new int[]{1, 100, 0};
+            
+            Scanner scanner = new Scanner(file);
+            int level = scanner.nextInt();
+            int health = scanner.nextInt();
+            int defeated = scanner.nextInt();
+            scanner.close();
+            
+            return new int[]{level, health, defeated};
+        } catch (Exception e) {
+            return new int[]{1, 100, 0};
         }
     }
 }

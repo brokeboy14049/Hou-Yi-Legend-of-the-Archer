@@ -9,28 +9,20 @@ import processing.core.PImage;
 import java.util.ArrayList;
 
 public class Player {
-    float x, y;
-    int health = 100;
-    int attackPower = 10;
-    PImage sprite;
-    ArrayList<String> items = new ArrayList<>();
+    public float x, y;
+    public int health = 100;
+    public PImage img;
+    public ArrayList<String> items = new ArrayList<>();
 
-    public Player(float x, float y, PImage sprite) {
+    public Player(float x, float y, PImage img) {
         this.x = x;
         this.y = y;
-        this.sprite = sprite;
-        items.add("heal");
-        items.add("power");
+        this.img = img;
+        items.add("Heal");
+        items.add("Power");
     }
 
-    public void update(boolean[] keys) {
-        if (keys['w'] || keys['W']) y -= 3;
-        if (keys['s'] || keys['S']) y += 3;
-        if (keys['a'] || keys['A']) x -= 3;
-        if (keys['d'] || keys['D']) x += 3;
-    }
-
-    public void display(PApplet app) {
-        app.image(sprite, x, y, 40, 40);
+    public void display(PApplet p) {
+        p.image(img, x, y, 40, 40);
     }
 }

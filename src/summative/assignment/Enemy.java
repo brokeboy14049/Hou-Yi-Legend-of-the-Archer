@@ -8,36 +8,25 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Enemy {
-    float x, y;
-    int health = 100;
-    PImage sprite;
-    String name;
-    String[] attackTexts;
+    public float x, y;
+    public int health = 100;
+    public PImage img;
+    public int attackPattern; // 0=Single, 1=Spread, 2=Spiral
+    public String name;
     
-    public Enemy(float x, float y, PImage sprite) {
+    public Enemy(float x, float y, PImage img, int pattern) {
         this.x = x;
         this.y = y;
-        this.sprite = sprite;
+        this.img = img;
+        this.attackPattern = pattern;
         
-        String[] names = {"Froggit", "Whimsun", "Moldsmal", "Loox", "Vegetoid"};
-        String[][] attacks = {
-            {"Froggit hops around!", "Ribbit!"},
-            {"Whimsun flutters shyly", "*sniff*"},
-            {"Moldsmal jiggles", "..."},
-            {"Loox stares at you", "You feel judged"},
-            {"Vegetoid wobbles", "It's showing off its veggies"}
-        };
-        
-        int r = (int)(Math.random() * names.length);
-        this.name = names[r];
-        this.attackTexts = attacks[r];
+        // Assign names and adjust health based on pattern
+        String[] names = {"Basic Enemy", "Spread Shooter", "Spiral Attacker"};
+        this.name = names[pattern];
+        this.health = 80 + pattern * 20; // Harder enemies have more health
     }
-    
-    public void display(PApplet app) {
-        app.image(sprite, x, y, 60, 60);
-    }
-    
-    public String getRandomAttackText() {
-        return attackTexts[(int)(Math.random() * attackTexts.length)];
+
+    public void display(PApplet p) {
+        p.image(img, x, y, 60, 60);
     }
 }

@@ -7,23 +7,18 @@ package summative.assignment;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Boss extends Enemy {
-    private String type;
+public class Boss {
+    public float x, y;
+    public int health = 200;
+    public PImage img;
 
-    public Boss(float x, float y, PImage sprite, String type) {
-        super(x, y, sprite);
-        this.type = type;
+    public Boss(float x, float y, PImage img) {
+        this.x = x;
+        this.y = y;
+        this.img = img;
     }
 
-    @Override
-    public void display(PApplet app) {
-        super.display(app);
-        app.fill(255);
-        app.text(type, x + 20, y - 10);
-    }
-
-    public String getType() {
-        return type;
+    public void display(PApplet p) {
+        p.image(img, x, y, 120, 120);
     }
 }
-

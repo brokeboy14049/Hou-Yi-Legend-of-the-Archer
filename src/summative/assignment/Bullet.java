@@ -7,10 +7,10 @@ package summative.assignment;
 import processing.core.PApplet;
 
 public class Bullet {
-    float x, y;
-    float vx, vy;
-    PApplet sketch;
-    
+    public float x, y;
+    public float vx, vy;
+    private PApplet sketch;
+
     public Bullet(float x, float y, float vx, float vy, PApplet sketch) {
         this.x = x;
         this.y = y;
@@ -18,13 +18,13 @@ public class Bullet {
         this.vy = vy;
         this.sketch = sketch;
     }
-    
+
     public void update() {
         x += vx;
         y += vy;
     }
-    
-    public void display(PApplet sketch) {
+
+    public void display() {  // Removed PApplet parameter since we store it in constructor
         sketch.fill(255, 0, 0);
         sketch.ellipse(x, y, 10, 10);
     }
