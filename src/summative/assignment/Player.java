@@ -13,6 +13,8 @@ public class Player {
     public int health = 100;
     public PImage img;
     public ArrayList<String> items = new ArrayList<>();
+    int maxHealth;
+    float size;
 
     public Player(float x, float y, PImage img) {
         this.x = x;

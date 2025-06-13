@@ -13,6 +13,7 @@ public class Enemy {
     public PImage img;
     public int attackPattern; // 0=Single, 1=Spread, 2=Spiral
     public String name;
+    float maxHealth;
     
     public Enemy(float x, float y, PImage img, int pattern) {
         this.x = x;

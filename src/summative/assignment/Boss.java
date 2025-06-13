@@ -9,16 +9,20 @@ import processing.core.PImage;
 
 public class Boss {
     public float x, y;
-    public int health = 200;
+    public int health;
+    public int maxHealth;
     public PImage img;
 
-    public Boss(float x, float y, PImage img) {
+    public Boss(float x, float y, PImage img, int currentLevel) {
         this.x = x;
         this.y = y;
         this.img = img;
+        this.maxHealth = 200 + currentLevel * 50;
+        this.health = this.maxHealth;
     }
 
     public void display(PApplet p) {
         p.image(img, x, y, 120, 120);
     }
 }
+

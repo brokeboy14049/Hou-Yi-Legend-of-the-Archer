@@ -6,32 +6,51 @@ package summative.assignment;
 
 import processing.core.PApplet;
 import processing.core.PImage;
+import java.util.ArrayList;
 
 public class SunBoss {
+    PApplet sketch;
     float x, y;
-    int health = 200; // Boss has more health
+    float health;
+    float maxHealth = 500;
     PImage sprite;
-
-    public SunBoss(float x, float y, PImage sprite) {
-        this.x = x;
-        this.y = y;
-        this.sprite = sprite;
+    int attackPattern = 0;
+    
+    public SunBoss(PApplet sketch) {
+        this.sketch = sketch;
+        this.x = sketch.width/2;
+        this.y = 150;
+        this.health = maxHealth;
+        this.sprite = sketch.loadImage("sunboss.png");
     }
-
-    public void display(PApplet app) {
-        // Draw boss with fixed size (120x120)
-        app.image(sprite, x, y, 120, 120);
-
-        // Health bar
-        app.fill(255);
-        app.rect(app.width / 2, 30, 300, 20);
-        app.fill(255, 200, 0);
-        float w = app.map(health, 0, 200, 0, 300);
-        app.rect(app.width / 2 - 150 + w / 2, 30, w, 20);
-        
-        // Boss name
-        app.fill(255);
-        app.textSize(24);
-        app.text("SUN BOSS", app.width / 2, 70);
+    
+    public void display() {
+        sketch.image(sprite, x, y, 150, 150);
+    }
+    
+    public void attack(ArrayList<Bullet> bullets) {
+        switch(attackPattern) {
+            case 0: // Radial attack
+                for (int i = 0; i < 12; i++) {
+                    float angle = PApplet.TWO_PI * i/12;
+                    bullets.add(new Bullet(
+                        x, y,
+                        PApplet.cos(angle) * 3,
+                        PApplet.sin(angle) * 3,
+                        sketch
+                    ));
+                }
+                break;
+            case 1: // Spiral attack
+                float spiralAngle = sketch.frameCount * 0.1f;
+                bullets.add(new Bullet(
+                    x, y,
+                    PApplet.cos(spiralAngle) * 4,
+                    PApplet.sin(spiralAngle) * 4,
+                    sketch
+                ));
+                break;
+        }
+        attackPattern = (attackPattern + 1) % 2;
     }
 }
